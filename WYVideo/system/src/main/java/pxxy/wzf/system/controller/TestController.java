@@ -1,11 +1,15 @@
 package pxxy.wzf.system.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pxxy.wzf.server.service.TestService;
 
 @RestController
 public class TestController {
 
+    @Autowired
+    private TestService testService;
     /**
      * @auther: 王智芳
      * @Description 测试接口
@@ -13,6 +17,6 @@ public class TestController {
      */
     @RequestMapping("/test")
     public String test(){
-        return "测试接口是否有用";
+        return testService.list().toString();
     }
 }
