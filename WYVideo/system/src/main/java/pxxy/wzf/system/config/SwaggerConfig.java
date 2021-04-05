@@ -11,10 +11,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
 
+    /**
+     * @auther: 王智芳
+     * @Description 创建Docket对象
+     * @date: 2021/4/5 9:21
+     */
     @Bean
     public Docket docket(){
         return new Docket(DocumentationType.SWAGGER_2)
@@ -25,6 +31,11 @@ public class SwaggerConfig {
                 .build();
     }
 
+    /**
+     * @auther: 王智芳
+     * @Description 修改swagger展示信息
+     * @date: 2021/4/5 9:22
+     */
     private ApiInfo apiInfo() {
         //作者信息
         Contact contact = new Contact("王智芳","http://www.pxc.jx.cn/","80504767@qq.com");
