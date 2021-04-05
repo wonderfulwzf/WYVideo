@@ -1,4 +1,4 @@
-package pxxy.wzf.serve;
+package pxxy.wzf.server;
 
 
 public class ServerApplication {

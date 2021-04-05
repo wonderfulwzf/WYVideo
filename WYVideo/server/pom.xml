@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>serve</artifactId>
+    <artifactId>server</artifactId>
+
     <dependencies>
         <!--    springboot项目    -->
         <dependency>
@@ -32,4 +33,5 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
+
 </project>

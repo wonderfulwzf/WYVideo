@@ -12,6 +12,11 @@
     <artifactId>system</artifactId>
 
     <dependencies>
+        <!--   二方包    -->
+        <dependency>
+            <groupId>pxxy.wzf</groupId>
+            <artifactId>server</artifactId>
+        </dependency>
         <!--    springboot项目    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,6 +40,11 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        <!--	集成mybatis		-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>
