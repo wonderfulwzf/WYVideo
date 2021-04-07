@@ -1,4 +1,4 @@
-package pxxy.wzf.system.controller;
+package pxxy.wzf.system.rest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
