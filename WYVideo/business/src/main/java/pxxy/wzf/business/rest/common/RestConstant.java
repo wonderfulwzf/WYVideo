@@ -1,4 +1,4 @@
-package pxxy.wzf.system.rest.common;
+package pxxy.wzf.business.rest.common;
 
 public class RestConstant {
     /**
