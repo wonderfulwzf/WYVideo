@@ -29,7 +29,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .groupName("王智芳")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("pxxy.wzf.system.controller"))
+                .apis(RequestHandlerSelectors.basePackage("pxxy.wzf.business.rest.controller"))
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class SwaggerConfig {
         //作者信息
         Contact contact = new Contact("王智芳","http://www.pxc.jx.cn/","80504767@qq.com");
         return new ApiInfo(
-           "往忆视频:system模块信息",
+           "往忆视频:business模块信息",
                 "加油搞钱,打工人",
                 "v1.0",
                 "http://www.pxc.jx.cn/",

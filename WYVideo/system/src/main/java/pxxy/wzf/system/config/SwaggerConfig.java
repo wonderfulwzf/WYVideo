@@ -29,7 +29,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .groupName("王智芳")
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("pxxy.wzf.system.controller"))
+                .apis(RequestHandlerSelectors.basePackage("pxxy.wzf.system.rest.controller"))
                 .build();
     }
 
