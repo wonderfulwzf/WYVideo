@@ -78,7 +78,7 @@ public class ActorService {
     /**
      * @auther: 王智芳
      * @Description 删除演员信息
-     * @date: 2021/4/8 22:39Long
+     * @date: 2021/4/8 22:39
      */
     public void delete(Long id) {
         actorMapper.deleteByPrimaryKey(id);
