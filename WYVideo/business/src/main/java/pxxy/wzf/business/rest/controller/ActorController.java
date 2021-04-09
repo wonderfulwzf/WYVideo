@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pxxy.wzf.business.rest.vo.common.Page;
 import pxxy.wzf.business.rest.vo.common.PageQuery;
@@ -64,11 +65,9 @@ public class ActorController {
      * @date: 2021/4/8 22:47
      */
     @PostMapping("/add")
-    public Rest save(@RequestBody ActorVO actorVO){
+    public Rest save(@RequestBody @Validated ActorVO actorVO){
         Rest rest = new Rest();
-
         actorVO.setId(YitIdHelper.nextId());
-
         actorService.add(CopierUtil.copyProperties(actorVO,new ActorDto()));
         return rest.resultSuccess("新增演员成功");
     }

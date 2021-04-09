@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @class
  * @date 2020/6/15 16:39
  */
-@ControllerAdvice(basePackages = {"pxxy.wzf.system.rest"})
+@ControllerAdvice(basePackages = {"pxxy.wzf.business.rest"})
 @ResponseBody
 public class RestExceptionHandler {
 
@@ -66,6 +66,13 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(RestException.class)
     public Rest<Object> handleRestException(RestException e) {
+        LOGGER.warn(ERROR_LOG_TEMPLATE, RestConstant.HTTP_LOG, e.getMessage());
+        return Rest.optResultSuccessInfo(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @ExceptionHandler(UserException.class)
+    public Rest<Object> handleUserException(UserException e) {
         LOGGER.warn(ERROR_LOG_TEMPLATE, RestConstant.HTTP_LOG, e.getMessage());
         return Rest.optResultSuccessInfo(e.getMessage());
     }
