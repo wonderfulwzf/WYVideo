@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @auther: 王智芳
  * @Description 开始事务配置类
- * @date: 2021/4/10 22:03
+ * @date: 2021/4/10 22:25
  */
 @EnableTransactionManagement
 @Configuration
