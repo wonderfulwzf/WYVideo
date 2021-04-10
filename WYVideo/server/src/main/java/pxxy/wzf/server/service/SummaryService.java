@@ -7,6 +7,7 @@ import pxxy.wzf.server.domain.Summary;
 import pxxy.wzf.server.domain.SummaryExample;
 import pxxy.wzf.server.dto.PageParams;
 import pxxy.wzf.server.dto.SummaryDto;
+import pxxy.wzf.server.mapper.MySummaryMapper;
 import pxxy.wzf.server.mapper.SummaryMapper;
 import pxxy.wzf.server.utils.CopierUtil;
 
@@ -20,6 +21,9 @@ public class SummaryService {
 
     @Autowired
     private SummaryMapper summaryMapper;
+
+    @Autowired
+    private MySummaryMapper mySummaryMapper;
 
     /**
      * @auther: 王智芳
@@ -80,5 +84,14 @@ public class SummaryService {
      */
     public void delete(Long id) {
         summaryMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * @auther: 王智芳
+     * @Description 更新概览总时长
+     * @date: 2021/4/10 21:53
+     */
+    public void updateSummaryTime(Long summary){
+        mySummaryMapper.updateTime(summary);
     }
 }

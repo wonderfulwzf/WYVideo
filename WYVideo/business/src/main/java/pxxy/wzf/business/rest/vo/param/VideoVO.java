@@ -1,11 +1,12 @@
 package pxxy.wzf.business.rest.vo.param;
 
 import lombok.Data;
+import pxxy.wzf.business.rest.vo.common.PageQuery;
 
 import java.io.Serializable;
 
 @Data
-public class VideoVO implements Serializable {
+public class VideoVO extends PageQuery implements Serializable {
 
     private static final long serialVersionUID = 5066431172867548938L;
     /**

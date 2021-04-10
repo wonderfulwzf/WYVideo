@@ -21,15 +21,22 @@ public class VideoService {
     @Autowired
     private VideoMapper videoMapper;
 
+    @Autowired
+    private  SummaryService summaryService;
+
     /**
      * @auther: 王智芳
      * @Description 列表查询
      * @date: 2021/4/7 21:31
      */
-    public List<VideoDto> list(PageParams pageParams){
+    public List<VideoDto> list(PageParams pageParams,Long summaryId){
         PageHelper.startPage(pageParams.getPageNo(),pageParams.getPageSize());
         //查询参数
         VideoExample videoExample = new VideoExample();
+        VideoExample.Criteria criteria = videoExample.createCriteria();
+        if(summaryId!=null && summaryId > 0){
+            criteria.andSummaryIdEqualTo(summaryId);
+        }
         List<Video> videos = videoMapper.selectByExample(videoExample);
         if(videos==null){
             return Collections.EMPTY_LIST;
@@ -59,6 +66,8 @@ public class VideoService {
         video.setCreateTime(new Date());
         video.setUpdateTime(new Date());
         videoMapper.insert(video);
+        //更新概览时长
+        summaryService.updateSummaryTime(videoDto.getSummaryId());
     }
 
     /**
@@ -71,6 +80,8 @@ public class VideoService {
         CopierUtil.copyProperties(videoDto,video);
         video.setUpdateTime(new Date());
         videoMapper.updateByPrimaryKeySelective(video);
+        //更新概览时长
+        summaryService.updateSummaryTime(videoDto.getSummaryId());
     }
 
     /**

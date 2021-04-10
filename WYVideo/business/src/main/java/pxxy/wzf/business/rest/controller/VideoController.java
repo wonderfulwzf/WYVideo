@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pxxy.wzf.business.rest.vo.common.Page;
-import pxxy.wzf.business.rest.vo.common.PageQuery;
 import pxxy.wzf.business.rest.vo.common.Rest;
 import pxxy.wzf.business.rest.vo.param.VideoVO;
 import pxxy.wzf.server.dto.PageParams;
@@ -39,23 +38,26 @@ public class VideoController {
      * @date: 2021/4/5 9:22
      */
     @PostMapping("/list")
-    public Rest<Page<VideoVO>> list(@RequestBody PageQuery pageQuery){
+    public Rest<Page<VideoVO>> list(@RequestBody VideoVO videoVO){
         Rest<Page<VideoVO>> rest = new Rest<>();
         //对分页参数进行判断
-        if(pageQuery.getPageNo()==null||pageQuery.getPageNo()<0){
+        if(videoVO.getPageNo()==null||videoVO.getPageNo()<0){
             return rest.resultFail("分页参数出差");
         }
-        if(pageQuery.getPageSize()==null||pageQuery.getPageSize()<0){
+        if(videoVO.getPageSize()==null||videoVO.getPageSize()<0){
             return rest.resultFail("分页参数出差");
         }
-        PageParams pageParams = new PageParams(pageQuery.getPageNo(),pageQuery.getPageSize());
-        List<VideoDto> list = videoService.list(pageParams);
+        if(videoVO.getSummaryId()==null||videoVO.getSummaryId()==0){
+            return rest.resultFail("视频概述出错");
+        }
+        PageParams pageParams = new PageParams(videoVO.getPageNo(),videoVO.getPageSize());
+        List<VideoDto> list = videoService.list(pageParams,videoVO.getSummaryId());
         if(list==null){
             return rest.resultSuccess("列表为空");
         }
         List<VideoVO> collect = list.stream().map(videoDto -> CopierUtil.copyProperties(videoDto, new VideoVO())).collect(Collectors.toList());
 
-        Page<VideoVO> voPage = new Page<>(pageQuery.getPageNo(),pageQuery.getPageSize(),videoService.totalRecord(),collect);
+        Page<VideoVO> voPage = new Page<>(videoVO.getPageNo(),videoVO.getPageSize(),videoService.totalRecord(),collect);
         return rest.resultSuccessInfo(voPage);
     }
 
