@@ -39,8 +39,10 @@
                              targetPackage="pxxy.wzf.server.mapper"
                              type="XMLMAPPER" />
         <!--  用于测试生成器      -->
-        <table tableName="test" domainObjectName="Test"/>
+<!--        <table tableName="test" domainObjectName="Test"/>-->
         <!--   演员表     -->
 <!--        <table tableName="actor" domainObjectName="Actor"/>-->
+        <!--    视频表    -->
+        <table tableName="video" domainObjectName="Video"/>
     </context>
 </generatorConfiguration>
