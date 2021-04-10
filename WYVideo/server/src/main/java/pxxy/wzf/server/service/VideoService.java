@@ -3,6 +3,7 @@ package pxxy.wzf.server.service;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pxxy.wzf.server.domain.Video;
 import pxxy.wzf.server.domain.VideoExample;
 import pxxy.wzf.server.dto.PageParams;
@@ -60,6 +61,7 @@ public class VideoService {
      * @Description 新增视频
      * @date: 2021/4/8 22:32
      */
+    @Transactional
     public void add(VideoDto videoDto) {
         Video video = new Video();
         CopierUtil.copyProperties(videoDto,video);
@@ -75,6 +77,7 @@ public class VideoService {
      * @Description 修改视频信息
      * @date: 2021/4/8 22:34
      */
+    @Transactional
     public void update(VideoDto videoDto) {
         Video video = new Video();
         CopierUtil.copyProperties(videoDto,video);
