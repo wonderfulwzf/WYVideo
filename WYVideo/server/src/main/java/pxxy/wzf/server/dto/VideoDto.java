@@ -21,7 +21,7 @@ public class VideoDto implements Serializable{
     /**
     * 总结id
     */
-    private Integer summaryId;
+    private Long summaryId;
 
     /**
     * 视频地址

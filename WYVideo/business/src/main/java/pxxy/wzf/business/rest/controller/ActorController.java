@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/actor")
 @Api("演员接口")
 public class ActorController {
 

@@ -5,14 +5,13 @@ import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pxxy.wzf.business.rest.vo.common.Page;
 import pxxy.wzf.business.rest.vo.common.PageQuery;
 import pxxy.wzf.business.rest.vo.common.Rest;
 import pxxy.wzf.business.rest.vo.param.VideoVO;
-import pxxy.wzf.server.dto.VideoDto;
 import pxxy.wzf.server.dto.PageParams;
+import pxxy.wzf.server.dto.VideoDto;
 import pxxy.wzf.server.service.VideoService;
 import pxxy.wzf.server.utils.CopierUtil;
 
@@ -20,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/video")
 @Api("视频接口")
 public class VideoController {
 
@@ -65,7 +65,7 @@ public class VideoController {
      * @date: 2021/4/8 22:47
      */
     @PostMapping("/add")
-    public Rest save(@RequestBody @Validated VideoVO videoVO){
+    public Rest save(@RequestBody VideoVO videoVO){
         Rest rest = new Rest();
         videoVO.setId(YitIdHelper.nextId());
         videoService.add(CopierUtil.copyProperties(videoVO,new VideoDto()));
