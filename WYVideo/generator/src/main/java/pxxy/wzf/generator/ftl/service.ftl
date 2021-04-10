@@ -32,7 +32,6 @@ public class ${Domain}Service {
         //查询参数
         ${Domain}Example ${domain}Example = new ${Domain}Example();
         List<${Domain}> ${domain}s = ${domain}Mapper.selectByExample(${domain}Example);
-        PageInfo<${Domain}> categoryPageInfo = new PageInfo<>();
         if(${domain}s==null){
             return Collections.EMPTY_LIST;
         }

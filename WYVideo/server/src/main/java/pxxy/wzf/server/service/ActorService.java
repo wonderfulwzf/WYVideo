@@ -1,7 +1,6 @@
 package pxxy.wzf.server.service;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pxxy.wzf.server.domain.Actor;
@@ -32,7 +31,6 @@ public class ActorService {
         //查询参数
         ActorExample actorExample = new ActorExample();
         List<Actor> actors = actorMapper.selectByExample(actorExample);
-        PageInfo<Actor> categoryPageInfo = new PageInfo<>();
         if(actors==null){
             return Collections.EMPTY_LIST;
         }
