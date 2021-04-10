@@ -43,6 +43,8 @@
         <!--   演员表     -->
 <!--        <table tableName="actor" domainObjectName="Actor"/>-->
         <!--    视频表    -->
-        <table tableName="video" domainObjectName="Video"/>
+<!--        <table tableName="video" domainObjectName="Video"/>-->
+        <!--    视频概述表    -->
+        <table tableName="summary" domainObjectName="Summary"/>
     </context>
 </generatorConfiguration>
