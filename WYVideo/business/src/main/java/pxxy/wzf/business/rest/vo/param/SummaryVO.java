@@ -3,6 +3,7 @@ package pxxy.wzf.business.rest.vo.param;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 public class SummaryVO implements Serializable {
@@ -48,4 +49,10 @@ public class SummaryVO implements Serializable {
     */
     private Long actorId;
 
+    /**
+     * @auther: 王智芳
+     * @Description 分类ids
+     * @date: 2021/4/11 15:47
+     */
+    private List<String> ids;
 }

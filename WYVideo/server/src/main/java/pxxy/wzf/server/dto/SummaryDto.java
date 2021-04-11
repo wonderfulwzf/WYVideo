@@ -1,6 +1,10 @@
 package pxxy.wzf.server.dto;
+
 import lombok.Data;
+
 import java.io.Serializable;
+import java.util.List;
+
 @Data
 public class SummaryDto implements Serializable{
 
@@ -46,5 +50,5 @@ public class SummaryDto implements Serializable{
     private Long actorId;
 
 
-
+    private List<String> ids;
 }

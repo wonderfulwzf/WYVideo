@@ -46,6 +46,8 @@
 <!--        <table tableName="video" domainObjectName="Video"/>-->
         <!--    视频概述表    -->
 <!--        <table tableName="summary" domainObjectName="Summary"/>-->
-        <table tableName="category" domainObjectName="Category"/>
+        <!--   分类表     -->
+<!--        <table tableName="category" domainObjectName="Category"/>-->
+        <table tableName="summarycategory" domainObjectName="SummaryCategory"/>
     </context>
 </generatorConfiguration>

@@ -3,6 +3,7 @@ package pxxy.wzf.server.service;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pxxy.wzf.server.domain.Summary;
 import pxxy.wzf.server.domain.SummaryExample;
 import pxxy.wzf.server.dto.PageParams;
@@ -24,6 +25,9 @@ public class SummaryService {
 
     @Autowired
     private MySummaryMapper mySummaryMapper;
+
+    @Autowired
+    private SummaryCategoryService summaryCategoryService;
 
     /**
      * @auther: 王智芳
@@ -57,12 +61,15 @@ public class SummaryService {
      * @Description 新增演员
      * @date: 2021/4/8 22:32
      */
+    @Transactional
     public void add(SummaryDto summaryDto) {
         Summary summary = new Summary();
         CopierUtil.copyProperties(summaryDto,summary);
         summary.setCreateTime(new Date());
         summary.setUpdateTime(new Date());
         summaryMapper.insert(summary);
+        //批量保存分类
+        summaryCategoryService.saveBatch(summaryDto.getId(),summaryDto.getIds());
     }
 
     /**
@@ -70,11 +77,15 @@ public class SummaryService {
      * @Description 修改演员信息
      * @date: 2021/4/8 22:34
      */
+    @Transactional
     public void update(SummaryDto summaryDto) {
         Summary summary = new Summary();
         CopierUtil.copyProperties(summaryDto,summary);
         summary.setUpdateTime(new Date());
         summaryMapper.updateByPrimaryKeySelective(summary);
+
+        //批量保存分类
+        summaryCategoryService.saveBatch(summaryDto.getId(),summaryDto.getIds());
     }
 
     /**
