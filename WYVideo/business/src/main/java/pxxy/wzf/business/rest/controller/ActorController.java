@@ -98,4 +98,20 @@ public class ActorController {
         actorService.delete(id);
         return rest.resultSuccess("删除演员成功");
     }
+
+    /**
+     * @auther: 王智芳
+     * @Description 演员全部
+     * @date: 2021/4/5 9:22
+     */
+    @GetMapping("/all")
+    public Rest<List<ActorVO>> all(){
+        Rest<List<ActorVO>> rest = new Rest<>();
+        List<ActorDto> list = actorService.all();
+        if(list==null){
+            return rest.resultSuccess("演员列表为空");
+        }
+        List<ActorVO> collect = list.stream().map(actorDto -> CopierUtil.copyProperties(actorDto, new ActorVO())).collect(Collectors.toList());
+        return rest.resultSuccessInfo(collect);
+    }
 }

@@ -81,4 +81,20 @@ public class ActorService {
     public void delete(Long id) {
         actorMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * @auther: 王智芳
+     * @Description 查询所有主演
+     * @date: 2021/4/11 16:46
+     */
+    public List<ActorDto> all(){
+        //查询参数
+        List<Actor> actors = actorMapper.selectByExample(null);
+        if(actors==null){
+            return Collections.EMPTY_LIST;
+        }
+        List<ActorDto> actorDtos = actors.stream().map(actor ->
+                CopierUtil.copyProperties(actor,new ActorDto())).collect(Collectors.toList());
+        return actorDtos;
+    }
 }
