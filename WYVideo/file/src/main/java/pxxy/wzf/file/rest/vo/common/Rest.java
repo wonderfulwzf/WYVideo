@@ -1,4 +1,4 @@
-package pxxy.wzf.file.rest.controller.common;
+package pxxy.wzf.file.rest.vo.common;
 
 public class Rest<T> {
 

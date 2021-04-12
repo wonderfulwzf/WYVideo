@@ -1,107 +1,40 @@
-package pxxy.wzf.file.rest.controller;
+package pxxy.wzf.file.rest.vo.util;
 
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.model.PutObjectRequest;
+
 import com.aliyun.vod.upload.impl.UploadImageImpl;
 import com.aliyun.vod.upload.impl.UploadVideoImpl;
 import com.aliyun.vod.upload.req.UploadImageRequest;
 import com.aliyun.vod.upload.req.UploadVideoRequest;
 import com.aliyun.vod.upload.resp.UploadImageResponse;
 import com.aliyun.vod.upload.resp.UploadVideoResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import pxxy.wzf.file.rest.vo.common.Rest;
-import pxxy.wzf.server.dto.FileDto;
-import pxxy.wzf.server.service.FileService;
-import pxxy.wzf.server.utils.UuidUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+public class UploadVideoDemo {
 
-@RestController
-@RequestMapping("/file")
-public class OssController {
-    private static final Logger LOG = LoggerFactory.getLogger(OssController.class);
-    public static final String BUSINESS_NAME = "文件oss";
-    //账号
-    @Value("${accessKeyId}")
-    private String accessKeyId;
-    //密码
-    @Value("${accessKeySecret}")
-    private String accessKeySecret;
-    //地域节点
-    @Value("${endpoint}")
-    private String endpoint;
-    //外网路径
-    @Value("${ossDomainhttp}")
-    private String ossDomainhttp;
-    //bucket名称
-    @Value("${bucket}")
-    private String bucket;
+    @Value("${vod.accessKeyId}")
+    private static String accessKeyId;
 
-    @Autowired
-    private FileService fileService;
+    @Value("${vod.accessKeySecret}")
+    private static String accessKeySecret;
 
-    @RequestMapping("/putong")
-    public void putongshangchuan(@RequestParam MultipartFile file) throws IOException {
-        System.out.println(file);
-        System.out.println("3212");
-        String fileName = file.getOriginalFilename();
-        String key = UuidUtil.getShortUuid();
-        String fullPath = "C:/img/"+key+"-"+fileName;
-        File dest = new File(fullPath);
-        file.transferTo(dest);
-        LOG.info(dest.getAbsolutePath());
-        System.out.println("321");
-    }
 
-    @RequestMapping("/file")
-    public Rest uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
-        Rest rest = new Rest();
-        String key ="wzf/"+UuidUtil.getShortUuid()+".jpg";
-        String resource = request.getParameter("name");
-        // 创建OSSClient的实例
-        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-        try {
-            if(file.getSize() != 0 && !"".equals(file.getName())){
-                // getInputStream()返回一个InputStream以从中读取文件的内容。通过此方法就可以获取到流
-                InputStream multipartFileInputStream = file.getInputStream();
+    public static void main(String[] args) {
+        String accessKeyId = "LTAI5tHvwwGbFc6NntQJpe4X";
+        String accessKeySecret = "IHgXtxnvWM4XbUWBJnhBATUgxTWZRe";
+        //1.音视频上传-本地文件上传
+        //视频标题(必选)  文件名
+        String title = "测试视频上传2";
+        //本地文件上传和文件流上传时，文件名称为上传文件绝对路径，如:/User/sample/文件名称.mp4 (必选)
+        //文件名必须包含扩展名
+        String fileName = "C:\\Users\\80504\\Desktop\\image\\p.mp4";
+        //String fileName = "p.mp4";
+        //本地文件上传
+        System.out.println(accessKeyId);
+        System.out.println(accessKeySecret);
+        testUploadVideo(accessKeyId, accessKeySecret, title, fileName);
 
-                PutObjectRequest putObjectRequest = new PutObjectRequest(bucket, key, multipartFileInputStream);
-                ossClient.putObject(putObjectRequest);
-                System.out.println("上传文件车成功");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            // 关闭流
-            ossClient.shutdown();
-        }
-
-        //记录文件记录
-        FileDto fileDto = new FileDto();
-        fileDto.setId(UuidUtil.getShortUuid());
-        fileDto.setName(file.getOriginalFilename());
-        fileDto.setPath(key);
-        fileDto.setSize((int) file.getSize());
-        fileDto.setResource(resource);
-        fileService.add(fileDto);
-        LOG.info("成功记录文件信息");
-        return rest.resultSuccessInfo(ossDomainhttp+"/"+key);
-    }
-
-    @RequestMapping("/test")
-    public void a(){
-        System.out.println("3212");
+        //2.图片上传-本地文件上传
+        //testUploadImageLocalFile(accessKeyId, accessKeySecret);
     }
 
     /**
@@ -206,5 +139,4 @@ public class OssController {
 
 
     }
-
 }
