@@ -48,6 +48,8 @@
 <!--        <table tableName="summary" domainObjectName="Summary"/>-->
         <!--   分类表     -->
 <!--        <table tableName="category" domainObjectName="Category"/>-->
-        <table tableName="summarycategory" domainObjectName="SummaryCategory"/>
+<!--        <table tableName="summarycategory" domainObjectName="SummaryCategory"/>-->
+        <!--   文件表     -->
+        <table tableName="file" domainObjectName="File"/>
     </context>
 </generatorConfiguration>
