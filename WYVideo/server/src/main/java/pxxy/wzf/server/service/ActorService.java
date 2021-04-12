@@ -30,6 +30,7 @@ public class ActorService {
         PageHelper.startPage(pageParams.getPageNo(),pageParams.getPageSize());
         //查询参数
         ActorExample actorExample = new ActorExample();
+        actorExample.setOrderByClause("create_time desc");
         List<Actor> actors = actorMapper.selectByExample(actorExample);
         if(actors==null){
             return Collections.EMPTY_LIST;
