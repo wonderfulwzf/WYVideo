@@ -22,6 +22,7 @@ import pxxy.wzf.server.dto.FileDto;
 import pxxy.wzf.server.service.FileService;
 import pxxy.wzf.server.utils.UuidUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,9 +65,10 @@ public class OssController {
     }
 
     @RequestMapping("/file")
-    public Rest uploadFile(@RequestParam("file") MultipartFile file) {
+    public Rest uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         Rest rest = new Rest();
         String key ="wzf/"+UuidUtil.getShortUuid()+".jpg";
+        String resource = request.getParameter("name");
         // 创建OSSClient的实例
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try {
@@ -90,8 +92,8 @@ public class OssController {
         fileDto.setId(UuidUtil.getShortUuid());
         fileDto.setName(file.getOriginalFilename());
         fileDto.setPath(key);
-        fileDto.setResource("wy视频");
         fileDto.setSize((int) file.getSize());
+        fileDto.setResource(resource);
         fileService.add(fileDto);
         LOG.info("成功记录文件信息");
         return rest.resultSuccessInfo(ossDomainhttp+"/"+key);
