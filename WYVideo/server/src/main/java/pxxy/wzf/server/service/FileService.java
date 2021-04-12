@@ -30,6 +30,7 @@ public class FileService {
         PageHelper.startPage(pageParams.getPageNo(),pageParams.getPageSize());
         //查询参数
         FileExample fileExample = new FileExample();
+        fileExample.setOrderByClause("create_time desc");
         List<File> files = fileMapper.selectByExample(fileExample);
         if(files==null){
             return Collections.EMPTY_LIST;
