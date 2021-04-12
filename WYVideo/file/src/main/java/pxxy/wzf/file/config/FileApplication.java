@@ -1,4 +1,4 @@
-package pxxy.wzf.file;
+package pxxy.wzf.file.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;

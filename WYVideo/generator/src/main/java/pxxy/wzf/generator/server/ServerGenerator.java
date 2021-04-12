@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.*;
 
 public class ServerGenerator {
-    static String MODULE = "business";
+    static String MODULE = "file";
     static String toDtoPath = "server\\src\\main\\java\\pxxy\\wzf\\server\\dto\\";
     static String toVoPath = MODULE+"\\src\\main\\java\\pxxy\\wzf\\"+MODULE+"\\rest\\vo\\param\\";
     static String toServicePath = "server\\src\\main\\java\\pxxy\\wzf\\server\\service\\";

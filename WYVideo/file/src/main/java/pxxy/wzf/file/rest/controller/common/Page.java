@@ -1,4 +1,4 @@
-package pxxy.wzf.file.controller.common;
+package pxxy.wzf.file.rest.controller.common;
 
 import java.io.Serializable;
 import java.util.ArrayList;

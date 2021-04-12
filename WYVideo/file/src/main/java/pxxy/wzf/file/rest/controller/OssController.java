@@ -1,4 +1,4 @@
-package pxxy.wzf.file.controller;
+package pxxy.wzf.file.rest.controller;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
@@ -11,12 +11,15 @@ import com.aliyun.vod.upload.resp.UploadImageResponse;
 import com.aliyun.vod.upload.resp.UploadVideoResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import pxxy.wzf.file.controller.common.Rest;
+import pxxy.wzf.file.rest.controller.common.Rest;
+import pxxy.wzf.server.dto.FileDto;
+import pxxy.wzf.server.service.FileService;
 import pxxy.wzf.server.utils.UuidUtil;
 
 import java.io.File;
@@ -43,6 +46,9 @@ public class OssController {
     //bucket名称
     @Value("${bucket}")
     private String bucket;
+
+    @Autowired
+    private FileService fileService;
 
     @RequestMapping("/putong")
     public void putongshangchuan(@RequestParam MultipartFile file) throws IOException {
@@ -78,6 +84,16 @@ public class OssController {
             // 关闭流
             ossClient.shutdown();
         }
+
+        //记录文件记录
+        FileDto fileDto = new FileDto();
+        fileDto.setId(UuidUtil.getShortUuid());
+        fileDto.setName(file.getOriginalFilename());
+        fileDto.setPath(key);
+        fileDto.setResource("wy视频");
+        fileDto.setSize((int) file.getSize());
+        fileService.add(fileDto);
+        LOG.info("成功记录文件信息");
         return rest.resultSuccessInfo(ossDomainhttp+"/"+key);
     }
 
