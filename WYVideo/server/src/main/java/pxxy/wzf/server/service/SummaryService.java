@@ -8,8 +8,10 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import pxxy.wzf.server.domain.Summary;
 import pxxy.wzf.server.domain.SummaryExample;
+import pxxy.wzf.server.dto.ActorDto;
 import pxxy.wzf.server.dto.PageParams;
 import pxxy.wzf.server.dto.SummaryDto;
+import pxxy.wzf.server.dto.VideoDto;
 import pxxy.wzf.server.mapper.MySummaryMapper;
 import pxxy.wzf.server.mapper.SummaryMapper;
 import pxxy.wzf.server.utils.CopierUtil;
@@ -31,6 +33,12 @@ public class SummaryService {
 
     @Autowired
     private SummaryCategoryService summaryCategoryService;
+
+    @Autowired
+    private ActorService actorService;
+
+    @Autowired
+    private VideoService videoService;
 
     /**
      * @auther: 王智芳
@@ -154,5 +162,28 @@ public class SummaryService {
         List<SummaryDto> summaryDtos = summarys.stream().map(summary ->
                 CopierUtil.copyProperties(summary,new SummaryDto())).collect(Collectors.toList());
         return summaryDtos;
+    }
+
+    /**
+     * @auther: 王智芳
+     * @Description 根据概览id查询所有关联信息
+     * @date: 2021/4/15 22:49
+     */
+    public SummaryDto findAllMessage(Long id) {
+        Summary summary = summaryMapper.selectByPrimaryKey(id);
+        if(summary == null){
+            return null;
+        }
+        SummaryDto summaryDto = new SummaryDto();
+        CopierUtil.copyProperties(summary,summaryDto);
+        // 查找主演信息
+        ActorDto actorDto = actorService.selectById(summaryDto.getActorId());
+        summaryDto.setActorDto(actorDto);
+
+        // 查找视频信息
+        List<VideoDto> videoDtos = videoService.selectBySummaryId(id);
+        summaryDto.setVideoDtos(videoDtos);
+
+        return summaryDto;
     }
 }

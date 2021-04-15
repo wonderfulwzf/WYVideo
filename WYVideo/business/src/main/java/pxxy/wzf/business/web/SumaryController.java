@@ -4,10 +4,7 @@ import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pxxy.wzf.business.rest.controller.ActorController;
 import pxxy.wzf.business.rest.vo.common.Page;
 import pxxy.wzf.business.rest.vo.common.PageQuery;
@@ -78,5 +75,17 @@ public class SumaryController {
         Page<SummaryDto> voPage = new Page<>(summaryDto.getPageNo(),summaryDto.getPageSize(),summaryService.totalRecord(),list);
         return rest.resultSuccessInfo(voPage);
     }
-    
+
+    /**
+     * @auther: 王智芳
+     * @Description 根据概览id查询所有关联信息
+     * @date: 2021/4/15 22:46
+     */
+    @GetMapping("/find_all/{id}")
+    public Rest findAllMessgae(@PathVariable Long id) {
+        LOG.info("查找概览全部信息开始：{}", id);
+        Rest rest = new Rest();
+        SummaryDto allMessage = summaryService.findAllMessage(id);
+        return rest.resultSuccessInfo(allMessage);
+    }
 }

@@ -54,9 +54,29 @@ public class SummaryDto implements Serializable{
      */
     private List<String> ids;
 
+    /**
+     * 当前页
+     */
     private Integer pageNo;
 
+    /**
+     * 分页大小
+     */
     private Integer pageSize;
 
+    /**
+     * 根据种类id查找
+     */
     private String categoryId;
+
+    /**
+     * 视频列表
+     */
+    private List<VideoDto> videoDtos;
+
+    /**
+     * 主演信息
+     */
+    private ActorDto actorDto;
+
 }

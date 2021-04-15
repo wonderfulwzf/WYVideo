@@ -98,4 +98,19 @@ public class ActorService {
                 CopierUtil.copyProperties(actor,new ActorDto())).collect(Collectors.toList());
         return actorDtos;
     }
+
+    /**
+     * @auther: 王智芳
+     * @Description 列表查询
+     * @date: 2021/4/7 21:31
+     */
+    public ActorDto selectById(Long  id){
+        Actor actor = actorMapper.selectByPrimaryKey(id);
+        if(actor==null){
+            return null;
+        }
+        ActorDto actorDto = new ActorDto();
+        CopierUtil.copyProperties(actor,actorDto);
+        return actorDto;
+    }
 }

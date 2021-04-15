@@ -95,4 +95,26 @@ public class VideoService {
     public void delete(Long id) {
         videoMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * @auther: 王智芳
+     * @Description 列表查询
+     * @date: 2021/4/7 21:31
+     */
+    public List<VideoDto> selectBySummaryId(Long summaryId){
+        if(summaryId == null){
+            return Collections.EMPTY_LIST;
+        }
+        //查询参数
+        VideoExample videoExample = new VideoExample();
+        VideoExample.Criteria criteria = videoExample.createCriteria();
+        criteria.andSummaryIdEqualTo(summaryId);
+        List<Video> videos = videoMapper.selectByExample(videoExample);
+        if(videos==null){
+            return Collections.EMPTY_LIST;
+        }
+        List<VideoDto> videoDtos = videos.stream().map(video ->
+                CopierUtil.copyProperties(video,new VideoDto())).collect(Collectors.toList());
+        return videoDtos;
+    }
 }
