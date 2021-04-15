@@ -38,6 +38,8 @@ public class SummaryService {
         PageHelper.startPage(pageParams.getPageNo(),pageParams.getPageSize());
         //查询参数
         SummaryExample summaryExample = new SummaryExample();
+        //热度倒叙
+        summaryExample.setOrderByClause("create_time desc");
         List<Summary> summarys = summaryMapper.selectByExample(summaryExample);
         if(summarys==null){
             return Collections.EMPTY_LIST;
@@ -104,5 +106,28 @@ public class SummaryService {
      */
     public void updateSummaryTime(Long summary){
         mySummaryMapper.updateTime(summary);
+    }
+
+
+
+    //提供给前端的接口
+    /**
+     * @auther: 王智芳
+     * @Description 分页查询最热的视频
+     * @date: 2021/4/15 20:19
+     */
+    public List<SummaryDto> heatVideo(PageParams pageParams){
+        PageHelper.startPage(pageParams.getPageNo(),pageParams.getPageSize());
+        //查询参数
+        SummaryExample summaryExample = new SummaryExample();
+        //热度倒叙
+        summaryExample.setOrderByClause("heat desc");
+        List<Summary> summarys = summaryMapper.selectByExample(summaryExample);
+        if(summarys==null){
+            return Collections.EMPTY_LIST;
+        }
+        List<SummaryDto> summaryDtos = summarys.stream().map(summary ->
+                CopierUtil.copyProperties(summary,new SummaryDto())).collect(Collectors.toList());
+        return summaryDtos;
     }
 }
