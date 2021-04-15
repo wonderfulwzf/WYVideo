@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import pxxy.wzf.server.domain.Summary;
 import pxxy.wzf.server.domain.SummaryExample;
 import pxxy.wzf.server.dto.PageParams;
@@ -12,6 +14,7 @@ import pxxy.wzf.server.mapper.MySummaryMapper;
 import pxxy.wzf.server.mapper.SummaryMapper;
 import pxxy.wzf.server.utils.CopierUtil;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -124,6 +127,28 @@ public class SummaryService {
         summaryExample.setOrderByClause("heat desc");
         List<Summary> summarys = summaryMapper.selectByExample(summaryExample);
         if(summarys==null){
+            return Collections.EMPTY_LIST;
+        }
+        List<SummaryDto> summaryDtos = summarys.stream().map(summary ->
+                CopierUtil.copyProperties(summary,new SummaryDto())).collect(Collectors.toList());
+        return summaryDtos;
+    }
+
+    /**
+     * @auther: 王智芳
+     * @Description 种类查询列表信息
+     * @date: 2021/4/15 22:15
+     */
+    public List<SummaryDto> listByCategory(SummaryDto summaryDto){
+        PageHelper.startPage(summaryDto.getPageNo(),summaryDto.getPageSize());
+        List<Summary> summarys = new ArrayList<>();
+        if(StringUtils.isEmpty(summaryDto.getCategoryId())){
+            summarys = summaryMapper.selectByExample(null);
+        }
+        else {
+             summarys = mySummaryMapper.listByCategory(summaryDto);
+        }
+        if(CollectionUtils.isEmpty(summarys)){
             return Collections.EMPTY_LIST;
         }
         List<SummaryDto> summaryDtos = summarys.stream().map(summary ->

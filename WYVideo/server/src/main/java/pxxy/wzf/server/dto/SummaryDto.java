@@ -49,6 +49,14 @@ public class SummaryDto implements Serializable{
     */
     private Long actorId;
 
-
+    /**
+     * 对应的种类集合
+     */
     private List<String> ids;
+
+    private Integer pageNo;
+
+    private Integer pageSize;
+
+    private String categoryId;
 }

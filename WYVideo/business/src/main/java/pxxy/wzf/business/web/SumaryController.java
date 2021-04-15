@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/web/sumary")
+@RequestMapping("/web/summary")
 @Api("前端概览接口")
 public class SumaryController {
     /**
@@ -55,4 +55,28 @@ public class SumaryController {
         Page<SummaryVO> voPage = new Page<>(pageQuery.getPageNo(),pageQuery.getPageSize(),summaryService.totalRecord(),collect);
         return rest.resultSuccessInfo(voPage);
     }
+
+    /**
+     * @auther: 王智芳
+     * @Description 根据分类返回列表
+     * @date: 2021/4/15 22:32
+     */
+    @PostMapping("/list_by_category")
+    public Rest<Page<SummaryDto>> heatVideo(@RequestBody SummaryDto summaryDto){
+        Rest<Page<SummaryDto>> rest = new Rest<>();
+        //对分页参数进行判断
+        if(summaryDto.getPageNo()==null||summaryDto.getPageNo()<0){
+            return rest.resultFail("分页参数出差");
+        }
+        if(summaryDto.getPageSize()==null||summaryDto.getPageSize()<0){
+            return rest.resultFail("分页参数出差");
+        }
+        List<SummaryDto> list = summaryService.listByCategory(summaryDto);
+        if(list==null){
+            return rest.resultSuccess("列表为空");
+        }
+        Page<SummaryDto> voPage = new Page<>(summaryDto.getPageNo(),summaryDto.getPageSize(),summaryService.totalRecord(),list);
+        return rest.resultSuccessInfo(voPage);
+    }
+    
 }

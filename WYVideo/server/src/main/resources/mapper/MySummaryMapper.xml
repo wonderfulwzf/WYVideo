@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="pxxy.wzf.server.mapper.MySummaryMapper" >
+    <!--  视频更新概览时长  -->
     <update id="updateTime">
         update summary c set `time` = (select sum(`time`) from `video` where summary_id = #{summaryId})
         where c.id = #{summaryId}
     </update>
+    <!-- web端【全部课程】页面，查询课程列表 -->
+    <select id="listByCategory" resultType="pxxy.wzf.server.domain.Summary">
+        select *
+        from `summary` c
+        <if test="summaryDto.categoryId != null and summaryDto.categoryId != ''">
+            , summarycategory cc
+        </if>
+        where 1 = 1
+        <if test="summaryDto.categoryId != null and summaryDto.categoryId != ''">
+            and c.id = cc.summary_id
+            and cc.category_id = #{summaryDto.categoryId}
+        </if>
+        order by c.heat asc
+    </select>
 </mapper>
