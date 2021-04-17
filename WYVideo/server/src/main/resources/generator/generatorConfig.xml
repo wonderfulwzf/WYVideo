@@ -50,6 +50,8 @@
 <!--        <table tableName="category" domainObjectName="Category"/>-->
 <!--        <table tableName="summarycategory" domainObjectName="SummaryCategory"/>-->
         <!--   文件表     -->
-        <table tableName="file" domainObjectName="File"/>
+<!--        <table tableName="file" domainObjectName="File"/>-->
+        <!--    用户表    -->
+        <table tableName="user" domainObjectName="User"/>
     </context>
 </generatorConfiguration>
