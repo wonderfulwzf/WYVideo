@@ -3,10 +3,12 @@ package pxxy.wzf.server.service;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import pxxy.wzf.server.domain.User;
 import pxxy.wzf.server.domain.UserExample;
 import pxxy.wzf.server.dto.PageParams;
 import pxxy.wzf.server.dto.UserDto;
+import pxxy.wzf.server.exception.UserException;
 import pxxy.wzf.server.mapper.UserMapper;
 import pxxy.wzf.server.utils.CopierUtil;
 
@@ -76,5 +78,25 @@ public class UserService {
      */
     public void delete(Integer id) {
         userMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * @auther: 王智芳
+     * @Description 登录逻辑:根据手机号查询密码，对比
+     * @date: 2021/4/17 13:23
+     */
+    public UserDto login(UserDto userDto){
+        //查询参数
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andPhoneEqualTo(userDto.getPhone());
+        List<User> users = userMapper.selectByExample(userExample);
+        if(CollectionUtils.isEmpty(users)){
+            throw new UserException(10000);
+        }
+        User user = users.get(0);
+        if(user.getPassword().equals(userDto.getPassword())){
+            return CopierUtil.copyProperties(user,userDto);
+        }
+        return null;
     }
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
@@ -25,11 +26,13 @@ public class UserVO implements Serializable {
     /**
     * 手机号
     */
+    @NotBlank(message = "手机号校验出错")
     private String phone;
 
     /**
     * 密码
     */
+    @NotBlank(message = "密码不能为空")
     private String password;
 
 }

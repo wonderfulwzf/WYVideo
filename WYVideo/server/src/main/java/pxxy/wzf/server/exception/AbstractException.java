@@ -1,6 +1,6 @@
 package pxxy.wzf.server.exception;
 
-public class AbstractException extends RuntimeException  {
+public class AbstractException extends RuntimeException implements Exception {
     private static final long serialVersionUID = 1L;
     protected Integer code;
     protected Object[] params;

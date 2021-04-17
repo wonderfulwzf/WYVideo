@@ -88,6 +88,11 @@ public class UserController {
         return rest.resultSuccess("修改成功");
     }
 
+    /**
+     * @auther: 王智芳
+     * @Description 删除用户
+     * @date: 2021/4/17 13:08
+     */
     @GetMapping("/delete/{id}")
     public Rest delete(@PathVariable Integer id){
         Rest rest = new Rest();
@@ -96,5 +101,20 @@ public class UserController {
         }
         userService.delete(id);
         return rest.resultSuccess("删除成功");
+    }
+
+    /**
+     * @auther: 王智芳
+     * @Description 新增
+     * @date: 2021/4/8 22:47
+     */
+    @PostMapping("/login")
+    public Rest login(@RequestBody @Validated UserVO userVO){
+        Rest rest = new Rest();
+        UserDto login = userService.login(CopierUtil.copyProperties(userVO, new UserDto()));
+        if(login == null){
+            return rest.resultFail("登录失败");
+        }
+        return rest.resultSuccessInfo(login);
     }
 }
