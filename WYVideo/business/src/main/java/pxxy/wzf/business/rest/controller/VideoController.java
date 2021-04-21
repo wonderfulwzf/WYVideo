@@ -2,9 +2,12 @@ package pxxy.wzf.business.rest.controller;
 
 import com.github.yitter.idgen.YitIdHelper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import pxxy.wzf.business.rest.vo.common.Page;
 import pxxy.wzf.business.rest.vo.common.Rest;
@@ -27,6 +30,9 @@ public class VideoController {
      */
     private static final Logger LOG = LoggerFactory.getLogger(VideoController.class);
 
+    /**
+     * 操作名称
+     */
     public static final String BUSINESS_NAME = "视频";
 
     @Autowired
@@ -37,7 +43,8 @@ public class VideoController {
      * @Description 视频列表
      * @date: 2021/4/5 9:22
      */
-    @PostMapping("/list")
+    @RequestMapping(value = "/list",method = {RequestMethod.POST},produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "视频列表",httpMethod = "POST",consumes = "application/json;charset=UTF-8",produces = "application/json;charset=UTF-8")
     public Rest<Page<VideoVO>> list(@RequestBody VideoVO videoVO){
         Rest<Page<VideoVO>> rest = new Rest<>();
         //对分页参数进行判断
@@ -52,11 +59,10 @@ public class VideoController {
         }
         PageParams pageParams = new PageParams(videoVO.getPageNo(),videoVO.getPageSize());
         List<VideoDto> list = videoService.list(pageParams,videoVO.getSummaryId());
-        if(list==null){
+        if(CollectionUtils.isEmpty(list)){
             return rest.resultSuccess("列表为空");
         }
         List<VideoVO> collect = list.stream().map(videoDto -> CopierUtil.copyProperties(videoDto, new VideoVO())).collect(Collectors.toList());
-
         Page<VideoVO> voPage = new Page<>(videoVO.getPageNo(),videoVO.getPageSize(),videoService.totalRecord(),collect);
         return rest.resultSuccessInfo(voPage);
     }
@@ -66,7 +72,8 @@ public class VideoController {
      * @Description 新增视频
      * @date: 2021/4/8 22:47
      */
-    @PostMapping("/add")
+    @RequestMapping(value = "/add",method = {RequestMethod.POST},produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "新增视频内容",httpMethod = "POST",consumes = "application/json;charset=UTF-8",produces = "application/json;charset=UTF-8")
     public Rest save(@RequestBody VideoVO videoVO){
         Rest rest = new Rest();
         videoVO.setId(YitIdHelper.nextId());
@@ -79,7 +86,8 @@ public class VideoController {
      * @Description 修改视频信息
      * @date: 2021/4/8 22:47
      */
-    @PostMapping("/update")
+    @RequestMapping(value = "/update",method = {RequestMethod.POST},produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "修改视频内容",httpMethod = "POST",consumes = "application/json;charset=UTF-8",produces = "application/json;charset=UTF-8")
     public Rest update(@RequestBody VideoVO videoVO){
         Rest rest = new Rest();
         //入参判断
@@ -95,8 +103,9 @@ public class VideoController {
      * @Description 删除视频
      * @date: 2021/4/10 9:35
      */
-    @GetMapping("/delete/{id}")
-    public Rest delete(@PathVariable Long id){
+    @RequestMapping(value = "/delete/{id}",method = {RequestMethod.GET},produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "删除视频内容",httpMethod = "GET",consumes = "application/json;charset=UTF-8",produces = "application/json;charset=UTF-8")
+    public Rest delete(@PathVariable @ApiParam(value = "视频id") Long id){
         Rest rest = new Rest();
         if(id==null){
             return rest.resultFail("id不能为空");
