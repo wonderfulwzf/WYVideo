@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@Api("接口")
+@Api(tags = "接口")
 @RequestMapping("category")
 public class CategoryController {
 

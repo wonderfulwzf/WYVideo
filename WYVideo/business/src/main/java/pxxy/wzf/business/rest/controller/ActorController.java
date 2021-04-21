@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/actor")
-@Api("演员接口")
+@Api(tags = "演员接口")
 public class ActorController {
 
     /**

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/video")
-@Api("视频接口")
+@Api(tags = "视频接口")
 public class VideoController {
 
     /**

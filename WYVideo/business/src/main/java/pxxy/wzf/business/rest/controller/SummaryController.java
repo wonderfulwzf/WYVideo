@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/summary")
-@Api("视频总览接口")
+@Api(tags = "视频总览接口")
 public class SummaryController {
 
     /**

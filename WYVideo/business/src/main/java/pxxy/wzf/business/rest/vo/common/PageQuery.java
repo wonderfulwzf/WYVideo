@@ -2,7 +2,8 @@ package pxxy.wzf.business.rest.vo.common;
 
 
 import com.alibaba.fastjson.JSON;
-
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -11,6 +12,8 @@ import java.io.Serializable;
  * @version 1.0.0
  * @date 2020/6/14 10:43
  */
+@Data
+@ApiModel(value = "分页参数")
 public class PageQuery implements Serializable {
 
     private static final long serialVersionUID = 3539652731459672699L;
