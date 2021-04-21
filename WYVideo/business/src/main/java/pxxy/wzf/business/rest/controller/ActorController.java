@@ -72,8 +72,8 @@ public class ActorController {
      * @Description 新增演员
      * @date: 2021/4/8 22:47
      */
-    @RequestMapping(value = "/add",method = {RequestMethod.GET},produces = "application/json;charset=UTF-8")
-    @ApiOperation(value = "新增演员",httpMethod = "GET",consumes = "application/json;charset=UTF-8",produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/add",method = {RequestMethod.POST},produces = "application/json;charset=UTF-8")
+    @ApiOperation(value = "新增演员",httpMethod = "POST",consumes = "application/json;charset=UTF-8",produces = "application/json;charset=UTF-8")
     public Rest save(@RequestBody @Validated @ApiParam(value = "演员VO对象") ActorVO actorVO){
         Rest rest = new Rest();
         //雪花id
